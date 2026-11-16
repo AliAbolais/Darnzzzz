@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hellooo My Darnzzz</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    .font-hand {
+      font-family: 'Caveat', cursive;
+    }
+
+    @keyframes floatMascot {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .animate-float {
+      animation: floatMascot 2.6s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(244, 63, 117, 0.35);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 0 32px rgba(244, 63, 117, 0.6);
+        transform: scale(1.02);
+      }
+    }
+
+    .btn-pulse-glow {
+      animation: pulseGlow 2.2s infinite ease-in-out;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-gradient-to-br from-pink-50 via-rose-50/40 to-purple-50 min-h-screen text-gray-800 flex items-center justify-center p-4 relative overflow-x-hidden font-sans selection:bg-rose-100">
+
+  <!-- Ambient Floating Canvas -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <main class="relative z-10 max-w-lg w-full">
+    <!-- Intro Card -->
+    <div
+      class="intro-card bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-9 shadow-xl border border-rose-100 text-center relative overflow-hidden">
+
+      <!-- Top Tag -->
+      <div
+        class="inline-block px-4 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-50 text-rose-600 border border-rose-100 mb-5 shadow-sm">
+        A Special Message Just For You
+      </div>
+
+      <!-- Real Stickers: Qoobee & Pengu -->
+      <div class="flex items-center justify-center gap-4 sm:gap-6 mb-5 animate-float">
+        <div
+          class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-amber-200 shadow-md bg-amber-50 shrink-0">
+          <img src="assets/qoobee.jpg" alt="Qoobee" class="w-full h-full object-cover">
+        </div>
+        <div
+          class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-pink-200 shadow-md bg-pink-50 shrink-0">
+          <img src="assets/pengu.png" alt="Pengu" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight leading-tight">
+        HELLOOO MY <span class="font-hand text-4xl sm:text-5xl text-rose-500 block sm:inline">DARNZZZZ!</span>
+      </h1>
+
+      <p class="font-hand text-2xl text-rose-400 mt-2 font-bold">
+        How are you today, my favorite girl?
+      </p>
+
+      <!-- Heartfelt Message Box -->
+      <div
+        class="my-6 bg-gradient-to-b from-amber-50/50 to-rose-50/40 p-5 rounded-2xl border border-amber-200/80 text-center shadow-inner">
+        <p class="text-base sm:text-lg font-black text-gray-800 leading-relaxed">
+          "I thank my God every time I remember you. Philippians 1:3 (NIV)"
+        </p>
+        <p class="text-xs sm:text-sm text-gray-600 mt-2 font-medium leading-normal">
+          Every day with you is a blessing, and I thank Allah for bringing you into my life through Isa Almasih. I made
+          this little world of mini-games just to make you smile and remind you how special you are to me. May Isa
+          Almasih always be at the center of our love. ❤️
+        </p>
+      </div>
+
+      <!-- Invitation Question -->
+      <div class="my-5">
+        <h3 class="text-lg font-black text-gray-800">
+          Would you like to play?
+        </h3>
+        <p class="text-xs text-gray-400 mt-1">
+          Qoobee and Pengu have a secret surprise waiting for you at the end!
+        </p>
+      </div>
+
+      <!-- Direct Play Button Only -->
+      <div class="mt-6 flex justify-center">
+        <a href="index.html" id="playBtn"
+          class="w-full sm:w-auto px-9 py-3.5 rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-base shadow-lg hover:shadow-rose-400/50 transition-all duration-200 btn-pulse-glow inline-flex items-center justify-center gap-2">
+          <span>Yes, Let's Play!</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Confetti on hover/click
+    const playBtn = document.getElementById('playBtn');
+    playBtn.addEventListener('mouseenter', () => {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 35,
+          spread: 60,
+          origin: { y: 0.7 },
+          colors: ['#f43f75', '#facc15', '#fb7199', '#fecdd6']
+        });
+      }
+    });
+
+    // Subtle background floating soft circles/hearts
+    const canvas = document.getElementById('bg-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const particles = [];
+      const symbols = ['❤', '✦', '✿'];
+      for (let i = 0; i < 16; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: 14 + Math.random() * 14,
+          speedY: 0.3 + Math.random() * 0.5,
+          speedX: (Math.random() - 0.5) * 0.3,
+          symbol: symbols[Math.floor(Math.random() * symbols.length)],
+          color: Math.random() > 0.5 ? '#f43f75' : '#fb7199',
+          opacity: 0.15 + Math.random() * 0.25,
+          angle: Math.random() * 360,
+          spin: (Math.random() - 0.5) * 0.8
+        });
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+          p.y -= p.speedY;
+          p.x += p.speedX;
+          p.angle += p.spin;
+          if (p.y < -30) { p.y = height + 30; p.x = Math.random() * width; }
+          if (p.x < -30) p.x = width + 30;
+          if (p.x > width + 30) p.x = -30;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.angle * Math.PI) / 180);
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle = p.color;
+          ctx.font = `${p.size}px sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(p.symbol, 0, 0);
+          ctx.restore();
+        });
+        requestAnimationFrame(render);
+      }
+      render();
+    }
+  </script>
+</body>
+
+</html>
